@@ -47,3 +47,20 @@ resource "aws_s3_bucket_acl" "public" {
   bucket = aws_s3_bucket.public.id
   acl    = "public-read"
 }
+
+resource "aws_s3_bucket" "alb_log" {
+  bucket = "alb-log-pragmatic-terraform-isanasan"
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "alb_log" {
+  bucket = aws_s3_bucket.alb_log.id
+
+  rule {
+    id     = "rule-1"
+    status = "Enabled"
+
+    expiration {
+      days = "180"
+    }
+  }
+}
