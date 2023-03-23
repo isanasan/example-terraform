@@ -1,3 +1,6 @@
+variable "access_key" {}
+variable "secret_key" {}
+
 terraform {
   required_providers {
     aws = {
@@ -7,9 +10,9 @@ terraform {
 }
 
 provider "aws" {
-  shared_credentials_files = ["$HOME/.aws/credentials"]
-  profile                  = "terraform-example"
   region                   = "ap-northeast-1"
+  access_key = var.access_key
+  secret_key = var.secret_key
 }
 
 data "aws_iam_policy_document" "allow_describe_regions" {
